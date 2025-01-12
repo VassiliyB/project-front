@@ -41,6 +41,8 @@
     function showTable(pageNumber) {
         $("tr:has(td)").remove();
 
+
+
         let totalCount = getTotalCount();
         let countPerPage = $("#count_pages").val();
 
@@ -72,7 +74,7 @@
                     + "<button id='buttonEdit_'" + item.id + ">"
                     + "<img src='img/edit.png'>"
                     + "</button></td><td>"
-                    + "<button id='buttonDelete_'" + item.id + ">"
+                    + "<button id='buttonDelete_'" + item.id + " onclick='deleteAccount("+ item.id +")'>"
                     + "<img src='img/delete.png'>"
                     + "</button></td></tr>"
                 ).appendTo("#myTable");
@@ -81,8 +83,9 @@
 
 
         let pagesCount = Math.ceil(totalCount/countPerPage);
+        // $("button.page-btn-style").removeClass("active");
 
-        $("button.page-btn-style").remove();
+        $("button.page-btn-style").removeClass("active").remove();
 
         for (let i = 0; i < pagesCount; i++) {
             let buttonTag = "<button>" + (i + 1) + "</button>";
@@ -95,10 +98,8 @@
         }
 
         let identifier = "#paging_button_" + pageNumber;
-        $(identifier).css({
-            "color": "white",
-            "background-color": "black"
-        });
+        $(identifier).css({"color": "red"});
+        $("#paging_button_" + pageNumber).addClass("active");
     }
 
 
@@ -111,8 +112,42 @@
             success: function (response) {
                 result = parseInt(response);
             }
-        })
+        });
         return result;
+    }
+
+    function getCurrentPage() {
+        let current_page = 1;
+        $('#paging_buttons button').each(function () {
+            if ($(this).hasClass("active")) {
+                current_page = $(this).text();
+            }
+        });
+        console.log("current page = " + current_page);
+        return parseInt(current_page) - 1;
+    }
+
+    function deleteAccount(id) {
+        let url = "/rest/players/" + id;
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function () {
+                let rowCount = $("#myTable tr").length - 2;
+                console.log("row count = " + rowCount);
+                if (rowCount === 0) {
+                    let current_page = getCurrentPage();
+                    if (current_page > 0) {
+                        showTable(current_page - 1);
+                    } else {
+                        showTable(0);
+                    }
+                } else {
+                    showTable(getCurrentPage());
+                }
+            }
+        })
+
     }
 </script>
 </body>
