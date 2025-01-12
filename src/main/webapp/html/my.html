@@ -37,6 +37,7 @@
 </div>
 <script>
     function showTable() {
+        $("tr:has(td)").remove();
         let url = "/rest/players";
         $.get(url, function (response) {
             $.each(response, function (i, item) {
@@ -60,6 +61,8 @@
         }
 
         let pagesCount = Math.ceil(totalCount/countPerPage);
+
+        $("button.page-btn-style").remove();
 
         for (let i = 0; i < pagesCount; i++) {
             let buttonTag = "<button>" + (i + 1) + "</button>";
