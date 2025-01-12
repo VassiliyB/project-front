@@ -3,8 +3,11 @@
     <title>RPG</title>
     <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
     <link href="/css/my.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body onload="show_table()">
+<body onload="showTable()">
 <div class="container">
     <div class="table-block">
         <h1>RPG admin panel</h1>
@@ -20,10 +23,11 @@
                 <th>Banned</th>
             </tr>
         </table>
+        <div id="paging-buttons">Pages</div>
     </div>
 </div>
 <script>
-    function show_table() {
+    function showTable() {
         let url = "/rest/players";
         $.get(url, function (response) {
             $.each(response, function (i, item) {
@@ -37,8 +41,22 @@
                     + new Date(item.birthday).toLocaleDateString() + '</td><td>'
                     + item.banned + '</td>'
                 ).appendTo("#myTable");
-            })
+            });
+        });
+        let total_count = getTotalCount();
+    }
+
+    function getTotalCount() {
+        let url = "/rest/players/count";
+        let result = 0;
+        $.ajax({
+            url: url,
+            async: false,
+            success: function (response) {
+                result = parseInt(response);
+            }
         })
+        return result;
     }
 </script>
 </body>
