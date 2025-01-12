@@ -7,13 +7,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body onload="showTable()">
+<body onload="showTable(0)">
 <div class="container">
     <div class="table-block">
         <h1>RPG admin panel</h1>
 
         <label for="count_pages">Count per page</label>
-        <select id="count_pages" onchange="showTable()">
+        <select id="count_pages" onchange="showTable(0)">
             <option value="3">3</option>
             <option value="5">5</option>
             <option value="10">10</option>
@@ -36,9 +36,26 @@
     </div>
 </div>
 <script>
-    function showTable() {
+    function showTable(pageNumber) {
         $("tr:has(td)").remove();
+
+        let totalCount = getTotalCount();
+        let countPerPage = $("#count_pages").val();
+
+        if (countPerPage == null) {
+            countPerPage = 3;
+        }
+
         let url = "/rest/players";
+
+        url = url.concat("?pageSize=").concat(countPerPage);
+
+        if (pageNumber == null) {
+            pageNumber = 0;
+        }
+
+        url = url.concat("&pageNumber=").concat(pageNumber);
+
         $.get(url, function (response) {
             $.each(response, function (i, item) {
                 $('<tr>').html('<td>'
@@ -53,12 +70,7 @@
                 ).appendTo("#myTable");
             });
         });
-        let totalCount = getTotalCount();
-        let countPerPage = $("#count_pages").val();
 
-        if (countPerPage == null) {
-            countPerPage = 3;
-        }
 
         let pagesCount = Math.ceil(totalCount/countPerPage);
 
@@ -68,7 +80,7 @@
             let buttonTag = "<button>" + (i + 1) + "</button>";
             let btn = $(buttonTag)
                 .attr("id", "paging_button_" + i)
-                .attr("onclick", "showTable()")
+                .attr("onclick", "showTable(" + i + ")")
                 .addClass("page-btn-style");
 
             $("#paging_buttons").append(btn);
