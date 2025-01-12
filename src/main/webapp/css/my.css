@@ -1,0 +1,27 @@
+.container {
+    padding-top: 50px;
+    margin: 0 auto;
+}
+
+.table-block {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 4px;
+    text-align: left;
+}

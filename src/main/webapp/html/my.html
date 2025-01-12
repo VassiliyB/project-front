@@ -4,23 +4,42 @@
     <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
     <link href="/css/my.css" rel="stylesheet">
 </head>
-<body>
-<h1>RPG admin panel</h1>
-
-<table id="myTable">
-    <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Title</th>
-        <th>Race</th>
-        <th>Profession</th>
-        <th>Level</th>
-        <th>Birthday</th>
-        <th>Banned</th>
-    </tr>
-</table>
+<body onload="show_table()">
+<div class="container">
+    <div class="table-block">
+        <h1>RPG admin panel</h1>
+        <table id="myTable">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Race</th>
+                <th>Profession</th>
+                <th>Level</th>
+                <th>Birthday</th>
+                <th>Banned</th>
+            </tr>
+        </table>
+    </div>
+</div>
 <script>
-
+    function show_table() {
+        let url = "/rest/players";
+        $.get(url, function (response) {
+            $.each(response, function (i, item) {
+                $('<tr>').html('<td>'
+                    + item.id + '</td><td>'
+                    + item.name + '</td><td>'
+                    + item.title + '</td><td>'
+                    + item.race + '</td><td>'
+                    + item.profession + '</td><td>'
+                    + item.level + '</td><td>'
+                    + new Date(item.birthday).toLocaleDateString() + '</td><td>'
+                    + item.banned + '</td>'
+                ).appendTo("#myTable");
+            })
+        })
+    }
 </script>
 </body>
 </html>
