@@ -1,11 +1,12 @@
-<html>
+<html lang="en">
 <head>
     <title>RPG</title>
     <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
     <link href="/css/my.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
 </head>
 <body onload="showTable(0)">
 <div class="container">
@@ -42,7 +43,6 @@
         $("tr:has(td)").remove();
 
 
-
         let totalCount = getTotalCount();
         let countPerPage = $("#count_pages").val();
 
@@ -71,21 +71,19 @@
                     + item.level + '</td><td>'
                     + new Date(item.birthday).toLocaleDateString() + '</td><td>'
                     + item.banned + '</td><td>'
-                    + "<button id='buttonEdit_'" + item.id + ">"
-                    + "<img src='img/edit.png'>"
+                    + "<button id='button_edit_" + item.id + "'onclick='editAccount(" + item.id + ")'>"
+                    + "<img src='img/edit.png' alt='edit'>"
                     + "</button></td><td>"
-                    + "<button id='buttonDelete_'" + item.id + " onclick='deleteAccount("+ item.id +")'>"
-                    + "<img src='img/delete.png'>"
+                    + "<button id='button_delete_" + item.id + "'onclick='deleteAccount(" + item.id + ")'>"
+                    + "<img src='img/delete.png' alt='delete'>"
                     + "</button></td></tr>"
                 ).appendTo("#myTable");
             });
         });
 
+        let pagesCount = Math.ceil(totalCount / countPerPage);
 
-        let pagesCount = Math.ceil(totalCount/countPerPage);
-        // $("button.page-btn-style").removeClass("active");
-
-        $("button.page-btn-style").removeClass("active").remove();
+        $("button.page-btn-style").remove();
 
         for (let i = 0; i < pagesCount; i++) {
             let buttonTag = "<button>" + (i + 1) + "</button>";
@@ -101,7 +99,6 @@
         $(identifier).css({"color": "red"});
         $("#paging_button_" + pageNumber).addClass("active");
     }
-
 
     function getTotalCount() {
         let url = "/rest/players/count";
@@ -123,7 +120,6 @@
                 current_page = $(this).text();
             }
         });
-        console.log("current page = " + current_page);
         return parseInt(current_page) - 1;
     }
 
@@ -134,7 +130,6 @@
             type: 'DELETE',
             success: function () {
                 let rowCount = $("#myTable tr").length - 2;
-                console.log("row count = " + rowCount);
                 if (rowCount === 0) {
                     let current_page = getCurrentPage();
                     if (current_page > 0) {
@@ -146,8 +141,18 @@
                     showTable(getCurrentPage());
                 }
             }
-        })
+        });
+    }
 
+    function editAccount(id) {
+        let identifier_edit = "#button_edit_" + id;
+        let identifier_delete = "#button_delete_" + id;
+
+        $(identifier_delete).remove();
+
+        let save_image_tag = "<img src='/img/save.png' alt='save'>";
+
+        $(identifier_edit).html(save_image_tag);
     }
 </script>
 </body>
