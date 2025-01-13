@@ -153,6 +153,74 @@
         let save_image_tag = "<img src='/img/save.png' alt='save'>";
 
         $(identifier_edit).html(save_image_tag);
+
+        let current_tr_element = $(identifier_edit).parent().parent();
+        let children_element = $(current_tr_element).children();
+
+        let td_name = children_element[1];
+        td_name.innerHTML = "<input id='input_name' type='text' value='" + td_name.innerHTML + "'>";
+
+        let td_title = children_element[2];
+        td_title.innerHTML = "<input id='input_title' type='text' value='" + td_title.innerHTML + "'>";
+
+        let td_race = children_element[3];
+        let race_id = "#select_race_" + id;
+        let race_current_valur = td_race.innerHTML;
+        td_race.innerHTML = getDropdownRaceHtml(id);
+        $(race_id).val(race_current_valur).change();
+
+        let td_profession = children_element[4];
+        let profession_id = "#select_profession_" + id;
+        let profession_current_valur = td_profession.innerHTML;
+        td_profession.innerHTML = getDropdownProfessionHtml(id);
+        $(profession_id).val(profession_current_valur).change();
+
+        let td_banned = children_element[7];
+        let banned_id = "#select_banned_" + id;
+        let banned_current_value = td_banned.innerHTML;
+        td_banned.innerHTML = getDropdownBannedHtml(id);
+        $(banned_id).val(banned_current_value).change();
+
+        let property_save_tag = "saveAccount(" + id + ")";
+        $(identifier_edit).attr('onclick', property_save_tag);
+    }
+
+    function getDropdownRaceHtml(id) {
+        let race_id = "select_race_" + id;
+        return "<lable for='race'></lable>"
+            + "<select id='" + race_id + "' name='race'>"
+            + "<option value='HUMAN'>HUMAN</option>"
+            + "<option value='DWARF'>DWARF</option>"
+            + "<option value='ELF'>ELF</option>"
+            + "<option value='GIANT'>GIANT</option>"
+            + "<option value='ORC'>ORC</option>"
+            + "<option value='TROLL'>TROLL</option>"
+            + "<option value='HOBBIT'>HOBBIT</option>"
+            + "</select>"
+    }
+
+    function getDropdownProfessionHtml(id) {
+        let profession_id = "select_profession_" + id;
+        return "<lable for='profession'></lable>"
+            + "<select id='" + profession_id + "' name='profession'>"
+            + "<option value='WARRIOR'>WARRIOR</option>"
+            + "<option value='ROGUE'>ROGUE</option>"
+            + "<option value='SORCERER'>SORCERER</option>"
+            + "<option value='CLERIC'>CLERIC</option>"
+            + "<option value='PALADIN'>PALADIN</option>"
+            + "<option value='NAZGUL'>NAZGUL</option>"
+            + "<option value='WARLOCK'>WARLOCK</option>"
+            + "<option value='DRUID'>DRUID</option>"
+            + "</select>"
+    }
+
+    function getDropdownBannedHtml(id) {
+        let banned_id = "select_banned_" + id;
+        return "<lable for='banned'></lable>"
+            + "<select id='" + banned_id + "' name='banned'>"
+            + "<option value='false'>false</option>"
+            + "<option value='true'>true</option>"
+            + "</select>"
     }
 </script>
 </body>
