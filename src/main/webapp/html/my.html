@@ -39,7 +39,7 @@
 
         <hr class="divider">
         <!-- Modal -->
-        <button id="openModal">Create new account:</button>
+        <button id="openModal">Create new account</button>
 
         <div id="userModal" class="modal">
             <div class="modal-content">
@@ -151,7 +151,7 @@
         }
 
         let identifier = "#paging_button_" + pageNumber;
-        $(identifier).css({"color": "red"});
+        $(identifier).css({color: "#e57959", backgroundColor: "#115e53", padding: "8px 0 8px 0"});
         $("#paging_button_" + pageNumber).addClass("active");
     }
 
@@ -306,6 +306,24 @@
             }
         });
     }
+
+    let modal = document.getElementById('userModal');
+    let openModalBtn = document.getElementById('openModal');
+    let closeModalBtn = document.querySelector('.close-btn');
+
+    openModalBtn.addEventListener("click", function () {
+        modal.style.display = 'flex';
+    })
+
+    closeModalBtn.addEventListener("click", function () {
+        modal.style.display = 'none';
+    })
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 
     function getDropdownRaceHtml(id) {
         let race_id = "select_race_" + id;
