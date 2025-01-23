@@ -35,29 +35,41 @@ This project is a simple web application for managing RPG character data. It all
 3.  **CSS Styling:**  Ensure that the `/css/my.css` file is correctly placed within the `css` directory and contains the necessary styles for the application.  Example if my.css contains:
     ```css
     body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f0f0f0;
+        font-family: "Roboto", serif;
+        margin: 20px;
     }
-    .container {
-        width: 80%;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+    #count_pages {
+        padding: 5px;
+        font-size: 15px;
+        color: #696969;
+        border: 1px solid rgb(201 201 201);
+        border-radius: 5px;
+        outline: none;
     }
+    
     table {
         width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
+        margin: 20px 0;
+        font-size: 16px;
         text-align: left;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
+    
+    th, td {
+        padding: 12px 15px;
+    }
+    
     th {
-        background-color: #f2f2f2;
+        background-color: #009879;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 300;
+        letter-spacing: 0.06em;
+    }
+    
+    tr {
+        border-bottom: 1px solid #dddddd;
     }
     /* Add more styles here */
     ```
