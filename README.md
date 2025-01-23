@@ -2,6 +2,11 @@
 
 This project is a simple web application for managing RPG character data. It allows you to view, create, edit, and delete character entries through a user-friendly interface.
 
+## The application looks like this:
+
+*   **Main page :**![Modal window](src/main/webapp/img/front-end_main.jpg)
+*   **Modal window :**![Modal window](src/main/webapp/img/front-end_create.jpg)
+
 ## Features
 
 *   **Displaying Characters:** Shows a table of RPG characters with details like ID, name, title, race, profession, level, birthday, and banned status.
